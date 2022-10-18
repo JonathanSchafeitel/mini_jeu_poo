@@ -31,6 +31,7 @@ class Players
     dmg = roll_damage
     puts "Il y a eu #{dmg} points de dégats"
     players2.gets_damage(dmg)
+    puts '-----------------------------------'
   end
 
   # Fonction qui roll un nombre aléatoire de domage
