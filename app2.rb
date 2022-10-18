@@ -55,7 +55,7 @@ _____________Oooo._____________
       end
     end
     puts '------------------------------------------'
-    # user_input = '45'
+    user_input = '45'
 
     while (user_input != 'a') && (user_input != 's') && !user_input.to_i.between?(0, enemies.size - 1)
       puts 'Sélectionne une action à effectuer'
