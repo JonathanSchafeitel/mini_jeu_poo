@@ -34,7 +34,7 @@ class Game
   def show_players
     puts '-----------------------------------'
     puts "#{@human_player.name} a #{@human_player.life_points} points de vie et a une arme de niveau #{@human_player.weapon_level}"
-    puts "Il reste encore #{enemies_in_sight.size} ennemis en vue #{@players_left}"
+    puts "Il y a #{enemies_in_sight.size} ennemis en vue"
     puts '-----------------------------------'
   end
 
@@ -44,7 +44,8 @@ class Game
     puts 'Que faire ?'
     puts 'a - Trouver une meilleure arme ?'
     puts 's - Trouver un pack santé ?'
-    puts 'Attaquer un joueur en vue :'
+    puts '-----------------------------------'
+    puts 'Attaquer un joueur ennemi en vue :'
     (0..enemies_in_sight.size - 1).each do |n|
       if @enemies_in_sight[n].life_points.positive?
         puts "#{n} - #{@enemies_in_sight[n].name} a #{@enemies_in_sight[n].life_points} points de vie"
@@ -58,8 +59,10 @@ class Game
     case str
     when 'a'
       @human_player.search_weapon
+      sleep(2)
     when 's'
       @human_player.search_health_pack
+      sleep(2)
     else
       if str.to_i.between?(0, @enemies_in_sight.size - 1)
         @human_player.attacks(@enemies_in_sight[str.to_i])
@@ -72,6 +75,7 @@ class Game
   def enemies_attack
     puts "#{@human_player.name} est attaqué !!"
     @enemies_in_sight.each { |enemy| enemy.attacks(@human_player) if is_still_ongoing? }
+    puts '-----------------------------------'
   end
 
   def game_end
@@ -93,11 +97,11 @@ class Game
         puts "Aucun nouvel ennemi n'apparaît ce tour"
       elsif nb_enemy < 5
         puts 'Un nouvel ennemi apparaît !!'
-        @enemies_in_sight << Players.new("Enemy #{enemies_in_sight.size}")
+        @enemies_in_sight << Players.new("Ennemi #{enemies_in_sight.size}")
       else
         puts 'Deux nouveaux ennemis apparaissent'
         2.times do |n|
-          @enemies_in_sight << Players.new("Enemy #{enemies_in_sight.size + n}")
+          @enemies_in_sight << Players.new("Ennemi #{enemies_in_sight.size + n}")
         end
       end
     end
